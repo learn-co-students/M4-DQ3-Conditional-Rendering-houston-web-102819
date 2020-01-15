@@ -4,6 +4,13 @@ import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
 
+  state = {
+    activeItem: 'profile'
+  }
+
+  handleClick = (e) => {
+    this.setState({activeItem: e.target.id})
+  }
 
   render() {
 
@@ -13,11 +20,23 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
+    let detailsToDisplay = <div>Hi, I'm a div!</div>
+    if(this.state.activeItem === 'profile'){
+      detailsToDisplay = <Profile />
+    }
+    if(this.state.activeItem === 'photo'){
+      detailsToDisplay = <Photos />
+    }
+    if(this.state.activeItem === 'cocktail'){
+      detailsToDisplay = <Cocktails />
+    }
+    if(this.state.activeItem === 'pokemon'){
+      detailsToDisplay = <Pokemon />
+    }
 
     return (
       <div>
-        <MenuBar />
+        <MenuBar onClick={this.handleClick} activeItem={this.state.activeItem}/>
         {detailsToDisplay}
       </div>
     )
